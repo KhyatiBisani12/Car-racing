@@ -5,6 +5,7 @@ var playerCount = 0;
 var form;
 var game;
 var player;
+var allPlayers;
 
 
 function setup(){
