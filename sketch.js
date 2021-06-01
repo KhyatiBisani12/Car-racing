@@ -6,12 +6,13 @@ var form;
 var game;
 var player;
 var allPlayers;
+var cars,car1,car2,car3,car4;
 
 
 function setup(){
     // Binding your database and your code. Binding is done with database variable.
     database = firebase.database();
-    createCanvas(500,500);
+    createCanvas(displayWidth, displayHeight);
     
     game = new Game();
     game.getState();
