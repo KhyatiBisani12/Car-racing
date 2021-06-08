@@ -3,8 +3,7 @@ class Player{
         this.index = null;
         this.distance = 0;
         this.name = null;
-        
-
+       this.xPos = 0;
     }
     getCount(){
         var countPlay = database.ref('playerCount');
@@ -26,8 +25,9 @@ class Player{
     update(){
         var playerIndex = "players/player" + this.index;
         database.ref(playerIndex).set({  
-            name : this.name,
-            distance : this.distance        // gameState is the node in the database . use : symbol
+            name : this.name,              // gameState is the node in the database . use : symbol
+            distance : this.distance,
+            xPos: this.xPos      
          })
     }
     // Player.getPlayerInfo();

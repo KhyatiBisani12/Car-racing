@@ -9,6 +9,8 @@ var allPlayers;
 var cars,car1,car2,car3,car4;
 var car1Img,car2Img,car3Img,car4Img;
 var trackImg;
+var yVel;
+var xVel;
 
 function preload(){
 
@@ -27,7 +29,9 @@ function setup(){
     game = new Game();
     game.getState();
     game.start();
-    
+   
+    xVel = 0;
+    yVel = 0;
     
     /*ballPosition = database.ref('ball/position'); // .ref() is used to point to a node in the database.
     ballPosition.on("value",readPosition,showError);*/
