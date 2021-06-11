@@ -48,7 +48,7 @@ class Game{
         fill("blue");
         text("Start",580,220);
         Player.getPlayerInfo();
-
+        
         // cars = [car1,car2,car3,car4]---- cars[0]
 
         if(allPlayers !== undefined){
@@ -69,12 +69,16 @@ class Game{
                 //text(text,x,y);
                 text(allPlayers[plr].name,cars[index-1].x,cars[index-1].y+75);
 
-                if(plr==="player"+player.index){
+                if(index === player.index){
                     fill("red");
                     stroke(10);
                     ellipse(x,y,60,60);
                     camera.position.x = displayWidth/2;
                     camera.position.y = cars[index-1].y ;
+                    if(cars[index-1].isTouching(obstacleGroup)){
+                         yVel -= 0.9;
+                         obstacleSound.play();
+                    }
                 }
                 
                

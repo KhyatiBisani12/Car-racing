@@ -11,14 +11,19 @@ var car1Img,car2Img,car3Img,car4Img;
 var trackImg;
 var yVel;
 var xVel;
-
+var obstacle;
+var obstacleGroup;
+var obstacleImage,obstacleSound;
+var obs_x,obs_y;
 function preload(){
 
-car1Img= loadImage("images/car1.png");
-car2Img= loadImage("images/car2.png");
-car3Img= loadImage("images/car3.png");
-car4Img= loadImage("images/car4.png");
-trackImg= loadImage("images/track.jpg");
+car1Img= loadImage("Images/car1.png");
+car2Img= loadImage("Images/car2.png");
+car3Img= loadImage("Images/car3.png");
+car4Img= loadImage("Images/car4.png");
+trackImg= loadImage("Images/track.jpg");
+obstacleImage= loadImage("Images/f1.png");
+obstacleSound= loadSound("Sounds/sound_car.mp3");
 }
 
 function setup(){
@@ -26,15 +31,23 @@ function setup(){
     database = firebase.database();
     createCanvas(displayWidth, displayHeight);
     
+    obstacleGroup = createGroup()
+
     game = new Game();
     game.getState();
     game.start();
    
     xVel = 0;
     yVel = 0;
+
+    for(var i=0;i<5;i++){
+        obs_x = random(200,950);
+        obs_y = random(-height*4,height-300);
+        obstacle = createSprite(obs_x,obs_y);
+        obstacle.addImage(obstacleImage);
+        obstacleGroup.add(obstacle);
+    }
     
-    /*ballPosition = database.ref('ball/position'); // .ref() is used to point to a node in the database.
-    ballPosition.on("value",readPosition,showError);*/
 }
 
 function draw(){
