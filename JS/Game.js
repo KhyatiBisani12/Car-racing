@@ -32,6 +32,7 @@ class Game{
         car4 = createSprite(700,200);
         car4.addImage(car4Img);
         cars = [car1,car2,car3,car4]
+        passedFinish = false;
     }
 
     /*
@@ -48,7 +49,7 @@ class Game{
         fill("blue");
         text("Start",580,220);
         Player.getPlayerInfo();
-        
+        player.getFinishedPlayers();
         // cars = [car1,car2,car3,car4]---- cars[0]
 
         if(allPlayers !== undefined){
@@ -77,7 +78,7 @@ class Game{
                     camera.position.y = cars[index-1].y ;
                     if(cars[index-1].isTouching(obstacleGroup)){
                          yVel -= 0.9;
-                         obstacleSound.play();
+                         //obstacleSound.play();
                     }
                 }
                 
@@ -106,8 +107,21 @@ class Game{
                 yVel *=0.985;
                 xVel *=0.985;
             }
-           //gameState = 2;
+        }else if(passedFinish === false){
+               
+                yVel *=0.7;
+                xVel *=0.7;
+                Player.updateFinishedPlayers();
+                
+                player.place = finishedPlayers;
+                player.update();
+                passedFinish = true;
         }
+        else {
+            
+        }
+           //gameState = 2;
+        
         player.distance += yVel;
         yVel *=0.985;
         player.xPos += xVel;
@@ -116,10 +130,33 @@ class Game{
         player.update();
         drawSprites();
     }
-    end(){
-       console.log("gameEnd");
-       
+    displayRanks(){
+        //display the medals
+        camera.position.y = 0;
+        camera.position.x = 0;
 
+        imageMode(CENTER);
+
+        Player.getPlayerInfo();
+
+        image(bronzeImg, displayWidth/-4, -100 + displayHeight/9, 200, 240);
+        image(silverImg, displayWidth/4, -100 + displayHeight/10, 225, 270);
+        image(goldImg, 0, -100, 250, 300);
+
+        textAlign(CENTER);
+        textSize(50);
+        for(var plr in allPlayers){
+            if(allPlayers[plr].place === 1){
+                text("1st: " + allPlayers[plr].name, 0, 85);
+            }else if(allPlayers[plr].place === 2){
+                text("2nd: " + allPlayers[plr].name, displayWidth/4, displayHeight/9 + 73);
+            }else if(allPlayers[plr].place === 3){ 
+                text("3rd: " + allPlayers[plr].name, displayWidth/-4, displayHeight/10 + 76);
+            }else{
+                textSize(30);
+                text("Honorable Mention: " + allPlayers[plr].name, 0, 225);
+            }
+        }
     }
 
 }

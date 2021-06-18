@@ -4,6 +4,7 @@ class Player{
         this.distance = 0;
         this.name = null;
        this.xPos = 0;
+       this.place = 0;
     }
     getCount(){
         var countPlay = database.ref('playerCount');
@@ -27,7 +28,8 @@ class Player{
         database.ref(playerIndex).set({  
             name : this.name,              // gameState is the node in the database . use : symbol
             distance : this.distance,
-            xPos: this.xPos      
+            xPos: this.xPos,
+            place : this.place
          })
     }
     // Player.getPlayerInfo();
@@ -36,6 +38,19 @@ class Player{
         playerInfo.on("value",(data)=>{     // anonymous function
             allPlayers = data.val(); // gameState is the variable. use = symbol
         })
+    }
+    getFinishedPlayers(){
+        var finishedPlayersRef = database.ref('finishedPlayers');
+        finishedPlayersRef.on("value",(data)=>{
+            finishedPlayers = data.val();
+        });
+    }
+    static updateFinishedPlayers(){
+        
+        database.ref('/').update({
+            finishedPlayers : finishedPlayers+1
+        });
+        this.place +=1;
     }
 }
 

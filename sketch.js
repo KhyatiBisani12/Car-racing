@@ -15,15 +15,21 @@ var obstacle;
 var obstacleGroup;
 var obstacleImage,obstacleSound;
 var obs_x,obs_y;
+var finishedPlayers=0, passedFinish;
+var goldImg, silverImg, bronzeImg;
+
 function preload(){
 
-car1Img= loadImage("Images/car1.png");
-car2Img= loadImage("Images/car2.png");
-car3Img= loadImage("Images/car3.png");
-car4Img= loadImage("Images/car4.png");
-trackImg= loadImage("Images/track.jpg");
-obstacleImage= loadImage("Images/f1.png");
-obstacleSound= loadSound("Sounds/sound_car.mp3");
+    car1Img= loadImage("Images/car1.png");
+    car2Img= loadImage("Images/car2.png");
+    car3Img= loadImage("Images/car3.png");
+    car4Img= loadImage("Images/car4.png");
+    trackImg= loadImage("Images/track.jpg");
+    obstacleImage= loadImage("Images/f1.png");
+    obstacleSound= loadSound("Sounds/sound_car.mp3");
+    goldImg = loadImage("Images/gold.png");
+    silverImg = loadImage("Images/silver.png");
+    bronzeImg = loadImage("Images/bronze.png");
 }
 
 function setup(){
@@ -53,7 +59,8 @@ function setup(){
 function draw(){
     background("white");
     
-    if(playerCount === 4){
+    if(playerCount === 4 && finishedPlayers === 0){
+        console.log("change gamestate");
         game.update(1)
     }
     if(gameState === 1){
@@ -61,9 +68,11 @@ function draw(){
         clear();
         game.play();
     }
-    if(gameState === 2){
-         game.end();
-
+    if(gameState === 2 && finishedPlayers === 4){
+         game.displayRanks();
+    }
+    if(finishedPlayers === 4){
+        game.update(2)
     }
 
 
